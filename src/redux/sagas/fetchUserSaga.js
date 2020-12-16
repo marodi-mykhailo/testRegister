@@ -5,12 +5,10 @@ import {setAppError, setAppIsLoading, setAppSuccess} from "../reducers/AppReduce
 import {setUserData} from "../reducers/UserDataReducer";
 
 
-function* asyncFetchOrganisationDataRequest(action) {
+function* asyncFetchUserDataRequest(action) {
     yield put(setAppIsLoading(true))
     try {
         const response = yield call(() => API.registration(action.payload, 'user'))
-        console.log(response);
-        console.log(action)
         yield put(setUserData(response))
         yield put(setAppIsLoading(false))
         yield put(setAppSuccess())
@@ -20,6 +18,6 @@ function* asyncFetchOrganisationDataRequest(action) {
     }
 }
 
-export function* watchFetchDataSaga() {
-    yield takeEvery(types.SET_ORGANISATION_DATA, asyncFetchOrganisationDataRequest)
+export function* watchFetchUserDataSaga() {
+    yield takeEvery(types.SET_USER_DATA, asyncFetchUserDataRequest)
 }

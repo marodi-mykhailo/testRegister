@@ -11,8 +11,6 @@ function* asyncFetchOrganisationDataRequest(action) {
     yield put(setAppIsLoading(true))
     try {
         const response = yield call(() => API.registration(action.payload, 'organisation'))
-        console.log(response);
-        console.log(action)
         yield put(setOrganisationData(response))
         yield put(setAppIsLoading(false))
         yield put(setAppSuccess())
@@ -22,6 +20,6 @@ function* asyncFetchOrganisationDataRequest(action) {
     }
 }
 
-export function* watchFetchDataSaga() {
+export function* watchFetchOrganisationDataSaga() {
     yield takeEvery(types.SET_ORGANISATION_DATA, asyncFetchOrganisationDataRequest)
 }
