@@ -8,8 +8,8 @@ import s from './RegisterForm.module.css'
 import google from '../../assets/image/google.png'
 import {useDispatch} from "react-redux";
 import {
-    fetchOrganiseData,
-} from "../../redux/reducers/fetchOrganisationDataRducer";
+    setOrganisationData,
+} from "../../redux/reducers/OrganisationDataRducer";
 
 const {Paragraph} = Typography;
 
@@ -20,14 +20,14 @@ const validateMessages = {
     }
 };
 
-const RegisterForm = () => {
+const OrganisationRegisterForm = () => {
 
     const dispatch = useDispatch();
     const [form] = Form.useForm();
 
     const onFinish = values => {
         console.log('Success:', values);
-        dispatch(fetchOrganiseData(values))
+        dispatch(setOrganisationData(values))
         form.resetFields();
     };
 
@@ -143,4 +143,4 @@ const RegisterForm = () => {
     );
 };
 
-export default RegisterForm;
+export default OrganisationRegisterForm;

@@ -1,14 +1,15 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Button, Checkbox, Form, Input} from "antd";
 import s from "../OrganisationRegisterForm/RegisterForm.module.css";
 import RegisterHeader from "../OrganisationRegisterForm/RegisterHeader/RegisterHeader";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
 import google from "../../assets/image/google.png";
 import {Typography} from "antd";
+import {setUserIsFirstPartDone} from "../../redux/reducers/UserDataReducer";
+import {Redirect} from "react-router-dom";
 
 const {Paragraph} = Typography;
-
 
 
 const validateMessages = {
@@ -18,14 +19,14 @@ const validateMessages = {
     }
 };
 
-const UserRegisterForm = () => {
-
+const UserRegisterForm1 = () => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
+    const isUserFirsPartDone = useSelector(state => state.user.isFirstPartDone)
 
     const onFinish = values => {
         console.log('Success:', values);
-        // dispatch((values))
+        dispatch(setUserIsFirstPartDone(values))
         form.resetFields();
     };
 
@@ -33,9 +34,13 @@ const UserRegisterForm = () => {
         console.log('Failed:', errorInfo);
     };
 
+    if (isUserFirsPartDone) {
+        return <Redirect to={'/userRegister2'}/>
+    }
+
     return (<section className={s.section}>
 
-            <RegisterHeader/>
+            <RegisterHeader type={"login"}/>
 
             <Form validateMessages={validateMessages}
                   name="UserRegisterForm"
@@ -127,4 +132,4 @@ const UserRegisterForm = () => {
     );
 };
 
-export default UserRegisterForm;
+export default UserRegisterForm1;
